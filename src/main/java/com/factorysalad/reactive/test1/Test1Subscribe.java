@@ -15,6 +15,7 @@ public class Test1Subscribe {
     public static void main(String[] args) {
         Test1Subscribe t1 = new Test1Subscribe();
         t1.reactor();
+        t1.reactor();
     }
 
     public void reactor() {
