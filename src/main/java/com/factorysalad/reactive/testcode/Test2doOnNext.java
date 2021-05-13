@@ -1,14 +1,10 @@
-package com.factorysalad.reactive.test1;
+package com.factorysalad.reactive.testcode;
 
 import com.factorysalad.reactive.ReactiveApplication;
 import com.factorysalad.reactive.model.Person;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class Test2doOnNext {
 

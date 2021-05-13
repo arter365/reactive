@@ -1,4 +1,4 @@
-package com.factorysalad.reactive.test1;
+package com.factorysalad.reactive.testcode;
 
 import com.factorysalad.reactive.ReactiveApplication;
 import com.factorysalad.reactive.model.Person;
@@ -51,7 +51,6 @@ public class Test3MonoFlux {
 
         Flux<Person> fx = Flux.fromIterable(personList);
         fx.collectList().subscribe(p -> log.info(p.toString()));	// collectList()에서는 Mono<List>를 리턴한다.
-        System.out.println("fluxMono end -----");
         System.out.println("fluxMono end -----");
     }
 }

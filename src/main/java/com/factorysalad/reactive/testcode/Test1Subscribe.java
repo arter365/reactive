@@ -1,4 +1,4 @@
-package com.factorysalad.reactive.test1;
+package com.factorysalad.reactive.testcode;
 
 import com.factorysalad.reactive.ReactiveApplication;
 import com.factorysalad.reactive.model.Person;
@@ -15,6 +15,7 @@ subscribe : Subscriber가 Publisher로 부터 신호를 받는 것을 구독이�
 
 Mono : Publisher를 구현한 발행자이다. (0 또는 1개의 데이터를 발생한다)
 Flux : Publisher를 구현한 발행자이다. (0개 이상의 데이터를 발생한다)
+참고 : 실제 시퀀스를 직접 생산할 일은 많지 않다. 대부분 라이브러리에서 제공받아서 사용한다.
  */
 public class Test1Subscribe {
 
@@ -29,6 +30,7 @@ public class Test1Subscribe {
     // Mono는 Publisher(발행자)를 구현한 객체이다.
     public void reactor1() {
         System.out.println("reactor1 start -----");
+        // 시퀀스로 사용 할 데이터가 이미 존재할 때 사용한다.
         Mono.just(new Person(1, "홍길동", 23));		        // 발행만 하면 아무일도 일어나지 않는다. (파이프라인만 만들었을 뿐이다)
         System.out.println("reactor1 end -----");
     }
