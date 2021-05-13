@@ -11,39 +11,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Test2doOnNext {
+
     private static final Logger log = LoggerFactory.getLogger(ReactiveApplication.class);
+
     public static void main(String[] args) {
         Test2doOnNext t1 = new Test2doOnNext();
-        t1.reactor();
+        t1.reactor1();
+        t1.reactor2();
     }
 
-    public void reactor() {
-        Mono.just(new Person(1, "이종석", 46))		// 이 줄만 있으면 아무것도 일어나지 않는다. 파이프라인만 만들었을 뿐이다.
-                .doOnNext(p -> log.info("[Reactor doOnNext] Person: " + p))	// 일반적으로 문제를 디버깅하는데 사용된다.
-                .subscribe(p -> log.info("[Reactor subscribe] Person: " + p));
-        System.out.println();
+    public void reactor1() {
+        System.out.println("reactor1 start -----");
+        Mono.just(new Person(1, "홍길동", 23))
+                .doOnNext(p -> log.info("[doOnNext()] Person: " + p))	// doOnNext()메서드는 Mono가 Subscriber에 next 신호를 발생할 때 호출된다. (일반적으로 문제를 디버깅하는데 사용)
+                .subscribe(p -> log.info("Person : " + p));   // 구독(subscribe)하면 Subscriber에 next 신호를 발생시켜서 신호를 처리한다.
+        System.out.println("reactor1 end -----");
     }
 
-    public void mono() {
-        Mono.just(new Person(1, "이종석", 46)).subscribe(p -> log.info(p.toString()));
-    }
-
-    public void flux() {
-        List<Person> persons = new ArrayList<>();
-        persons.add(new Person(1, "이종석", 46));
-        persons.add(new Person(2, "홍길동", 25));
-        persons.add(new Person(3, "이순신", 38));
-
-        Flux.fromIterable(persons).subscribe(p -> log.info(p.toString()));
-    }
-
-    public void fluxMono() {
-        List<Person> persons = new ArrayList<>();
-        persons.add(new Person(1, "이종석", 46));
-        persons.add(new Person(2, "홍길동", 25));
-        persons.add(new Person(3, "이순신", 38));
-
-        Flux<Person> fx = Flux.fromIterable(persons);
-        fx.collectList().subscribe(p -> log.info(p.toString()));	// collectList()에서는 Mono를 리턴한ㄷ.
+    public void reactor2() {
+        System.out.println("reactor2 start -----");
+        Mono.just(new Person(1, "이순신", 30))
+                .doOnNext(p -> log.info("[doOnNext()] Person: " + p));	// 구독하지 않으면 아무일도 일어나지 않는다.
+        System.out.println("reactor2 end -----");
     }
 }

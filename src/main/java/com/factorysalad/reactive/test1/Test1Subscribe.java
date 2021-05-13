@@ -4,47 +4,39 @@ import com.factorysalad.reactive.ReactiveApplication;
 import com.factorysalad.reactive.model.Person;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
-import java.util.ArrayList;
-import java.util.List;
+/*
+Reactive Streams는 시간에 따라 연속으로 발생하는(0개 ~ N개) 데이터(이벤트 또는 신호)이다.
 
+Publisher(발행자)를 사용하여 Streams를 정의한다.
+Subscriber(구독자)를 사용하여 발생한 신호를 처리한다.
+subscribe : Subscriber가 Publisher로 부터 신호를 받는 것을 구독이라 한다.
+
+Mono : Publisher를 구현한 발행자이다. (0 또는 1개의 데이터를 발생한다)
+Flux : Publisher를 구현한 발행자이다. (0개 이상의 데이터를 발생한다)
+ */
 public class Test1Subscribe {
+
     private static final Logger log = LoggerFactory.getLogger(ReactiveApplication.class);
+
     public static void main(String[] args) {
         Test1Subscribe t1 = new Test1Subscribe();
-        t1.reactor();
-        t1.reactor();
+        t1.reactor1();
+        t1.reactor2();
     }
 
-    public void reactor() {
-        Mono.just(new Person(1, "이종석", 46))		// 이 줄만 있으면 아무것도 일어나지 않는다. 파이프라인만 만들었을 뿐이다.
-                .doOnNext(p -> log.info("[Reactor doOnNext] Person: " + p))	// 일반적으로 문제를 디버깅하는데 사용된다.
-                .subscribe(p -> log.info("[Reactor subscribe] Person: " + p));
-        System.out.println();
+    // Mono는 Publisher(발행자)를 구현한 객체이다.
+    public void reactor1() {
+        System.out.println("reactor1 start -----");
+        Mono.just(new Person(1, "홍길동", 23));		        // 발행만 하면 아무일도 일어나지 않는다. (파이프라인만 만들었을 뿐이다)
+        System.out.println("reactor1 end -----");
     }
 
-    public void mono() {
-        Mono.just(new Person(1, "이종석", 46)).subscribe(p -> log.info(p.toString()));
-    }
-
-    public void flux() {
-        List<Person> persons = new ArrayList<>();
-        persons.add(new Person(1, "이종석", 46));
-        persons.add(new Person(2, "홍길동", 25));
-        persons.add(new Person(3, "이순신", 38));
-
-        Flux.fromIterable(persons).subscribe(p -> log.info(p.toString()));
-    }
-
-    public void fluxMono() {
-        List<Person> persons = new ArrayList<>();
-        persons.add(new Person(1, "이종석", 46));
-        persons.add(new Person(2, "홍길동", 25));
-        persons.add(new Person(3, "이순신", 38));
-
-        Flux<Person> fx = Flux.fromIterable(persons);
-        fx.collectList().subscribe(p -> log.info(p.toString()));	// collectList()에서는 Mono를 리턴한ㄷ.
+    public void reactor2() {
+        System.out.println("reactor2 start -----");
+        Mono.just(new Person(1, "이순신", 30))                 // Reactive Streams에서는 데이터를 요청(구독)하기 전까지 아무런 데이터도 전송하지 않는다.
+                .subscribe(p -> log.info("Person : " + p));   // 구독(subscribe)하면 Subscriber에 next 신호를 발생시켜서 신호를 처리한다.
+        System.out.println("reactor2 end -----");
     }
 }
