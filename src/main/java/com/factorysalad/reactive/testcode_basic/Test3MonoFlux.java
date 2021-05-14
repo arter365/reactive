@@ -1,4 +1,4 @@
-package com.factorysalad.reactive.testcode;
+package com.factorysalad.reactive.testcode_basic;
 
 import com.factorysalad.reactive.ReactiveApplication;
 import com.factorysalad.reactive.model.Person;
