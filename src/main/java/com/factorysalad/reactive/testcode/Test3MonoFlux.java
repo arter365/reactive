@@ -15,10 +15,10 @@ public class Test3MonoFlux {
     private static final Logger log = LoggerFactory.getLogger(ReactiveApplication.class);
 
     public static void main(String[] args) {
-        Test3MonoFlux t1 = new Test3MonoFlux();
-        t1.mono();
-        t1.flux();
-        t1.fluxMono();
+        Test3MonoFlux t3 = new Test3MonoFlux();
+        t3.mono();
+        t3.flux();
+        t3.fluxMono();
     }
 
     // Mono : Publisher를 구현한 발행자이다. (0 또는 1개의 데이터를 발생한다)

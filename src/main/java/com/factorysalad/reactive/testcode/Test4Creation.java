@@ -15,11 +15,11 @@ public class Test4Creation {
     private static final Logger log = LoggerFactory.getLogger(ReactiveApplication.class);
 
     public static void main(String[] args) {
-        Test4Creation t1 = new Test4Creation();
-        //t1.empty();
-        t1.range();
-        t1.fluxRepeat();
-        t1.monoRepeat();
+        Test4Creation t4 = new Test4Creation();
+        //t4.empty();
+        t4.range();
+        t4.fluxRepeat();
+        t4.monoRepeat();
     }
 
     // 데이터를 발생하지 않는 Mono, Flux 생성

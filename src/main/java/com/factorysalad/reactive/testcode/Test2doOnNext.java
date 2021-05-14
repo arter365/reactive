@@ -11,9 +11,9 @@ public class Test2doOnNext {
     private static final Logger log = LoggerFactory.getLogger(ReactiveApplication.class);
 
     public static void main(String[] args) {
-        Test2doOnNext t1 = new Test2doOnNext();
-        t1.reactor1();
-        t1.reactor2();
+        Test2doOnNext t2 = new Test2doOnNext();
+        t2.reactor1();
+        t2.reactor2();
     }
 
     public void reactor1() {
