@@ -97,6 +97,7 @@ public class Test7Combination {
         Flux.zip(fx1, fx2, fx3)
                 .subscribe(x -> log.info(x.toString()));
         System.out.println("zip2 end -----");
+
         /*
         결과 :
         [Person{idPerson=1, names='강감찬', age=19},Person{idPerson=4, names='을지문덕', age=42},Sale{saleId=1, date=2021-05-18T10:13:28.766842100}]
