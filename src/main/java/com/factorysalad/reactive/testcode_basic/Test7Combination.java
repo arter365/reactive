@@ -93,6 +93,7 @@ public class Test7Combination {
          */
 
 
+
         System.out.println("zip2 start -----");
         // stream fx1, fx2, fx3을 그룹화한다. 그룹화 시킬수 없는 것은 제외한다.
         Flux.zip(fx1, fx2, fx3)
