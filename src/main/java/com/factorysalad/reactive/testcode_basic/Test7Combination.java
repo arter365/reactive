@@ -92,8 +92,6 @@ public class Test7Combination {
         Flux1: Person{idPerson=3, names='이순신', age=30}, Flux2: Person{idPerson=6, names='이이', age=61}
          */
 
-
-
         System.out.println("zip2 start -----");
         // stream fx1, fx2, fx3을 그룹화한다. 그룹화 시킬수 없는 것은 제외한다.
         Flux.zip(fx1, fx2, fx3)
