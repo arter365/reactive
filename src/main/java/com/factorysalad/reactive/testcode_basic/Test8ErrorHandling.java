@@ -78,6 +78,4 @@ public class Test8ErrorHandling {
                 .subscribe(x -> log.info(x.toString()));
         System.out.println("errorMap end -----");
     }
-
-
 }
