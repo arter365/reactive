@@ -22,7 +22,6 @@ public class Test9Conditional {
         t9.defaultIfEmpty3();
         t9.takeUntil();
         t9.timeout();
-
     }
 
     public void defaultIfEmpty1() {
