@@ -38,18 +38,18 @@ public class Step1 {
         이렇게 값을 꺼내서 새로운 Publisher로 바꿔줄 수 있는 대표적인 연산자는 아래와 같다.
         1) flatMap : 리턴하는 Publisher가 비동기로 동작할 때 순서를 보장하지 않는다.
         2) flatMapSequential : flatMap과 달리 순서를 보장하며 오는 대로 구독하고 결과는 순서에 맞게 리턴하는 역할을 해서, 비동기 환경에서 동시성을 지원하면서도 순서를 보장할 때 쓰인다.
-        3) concatMap : flatMap과 달리 순서를 보장하며 인자로 지정된 함수에서 리턴하는 Publisher의 스트림이 다 끝난 후에 그다음 넘어오는 값의 Publisher스트림을 처리한다.
+        3) concatMap : flatMap과 달리 순서를 보장하며 인자로 지정된 함수에서 리턴하는 Publisher의 스트림이 다 끝난 후에 그다음 넘어오는 값의 Publisher스트림을 처리한다. (동기식이기 때문에 성능이 느리다)
          */
         basketFlux.concatMap(basket -> {    // concatMap으로 하나씩 꺼낸다. (concatMap을 사용했기 때문에 basket1, basket2, basket3이 순서대로 나온다.)
             // --------------- 중복 제거 테스트 ---------------
-//            System.out.println("Test 1) basket : " + basket);
+            System.out.println("Test 1) basket : " + basket);
             final Mono<List<String>> distinctFruits = Flux.fromIterable(basket).distinct().collectList();
 
             // 테스트
-//            distinctFruits.subscribe(f -> {
-//                System.out.print("Test 2) distinctFruits : ");
-//                System.out.println(f);
-//            });
+            distinctFruits.subscribe(f -> {
+                System.out.print("Test 2) distinctFruits : ");
+                System.out.println(f);
+            });
             /*
             중복 제거 테스트 결과
             Test 1) basket : [kiwi, orange, lemon, orange, lemon, kiwi]
@@ -60,12 +60,14 @@ public class Step1 {
             Test 2) distinctFruits : [strawberry, orange, lemon, grape] // 중복 제거됨.
              */
 
+            // flastMap, concatMap등은 Flux를 리텅하지만 map과 같이 처리 할 수 있다고 보면 편하다.
+            // 101번째 줄을 보면 Map<String, Long>으로 만드는 과정이 있다.
             final Mono<Map<String, Long>> countFruitsMono = Flux.fromIterable(basket)
                     // 테스트 : basket을 이터러블하게 만들어서 반복하면 fruit가 하나씩 나온다.
-//                    .doOnNext(fruit -> {
-//                        System.out.print("Test 3) fruit : ");
-//                        System.out.println(fruit);  // f -> 이렇게 적으면 ::printf 이렇게 적지 못하는 것 같다.
-//                    })
+                    .doOnNext(fruit -> {
+                        System.out.print("Test 3) fruit : ");
+                        System.out.println(fruit);  // f -> 이렇게 적으면 ::printf 이렇게 적지 못하는 것 같다.
+                    })
                     /*
                     Test 1) basket : [kiwi, orange, lemon, orange, lemon, kiwi]
                     Test 2) distinctFruits : [kiwi, orange, lemon]
