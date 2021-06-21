@@ -71,6 +71,7 @@ public class Step1 {
                     /*
                     Test 1) basket : [kiwi, orange, lemon, orange, lemon, kiwi]
                     Test 2) distinctFruits : [kiwi, orange, lemon]
+                    // 중복없이 하나의 basket을 반복한다.
                     Test 3) fruit : kiwi
                     Test 3) fruit : orange
                     Test 3) fruit : lemon
@@ -80,6 +81,7 @@ public class Step1 {
 
                     Test 1) basket : [banana, lemon, lemon, kiwi]
                     Test 2) distinctFruits : [banana, lemon, kiwi]
+                    // 중복없이 하나의 basket을 반복한다.
                     Test 3) fruit : banana
                     Test 3) fruit : lemon
                     Test 3) fruit : lemon
@@ -87,6 +89,7 @@ public class Step1 {
 
                     Test 1) basket : [strawberry, orange, lemon, grape, strawberry]
                     Test 2) distinctFruits : [strawberry, orange, lemon, grape]
+                    // 중복없이 하나의 basket을 반복한다.
                     Test 3) fruit : strawberry
                     Test 3) fruit : orange
                     Test 3) fruit : lemon
@@ -94,6 +97,10 @@ public class Step1 {
                     Test 3) fruit : strawberry
                      */
                     .groupBy(fruit -> fruit) // 바구니로 부터 넘어온 과일 기준으로 group을 묶는다. (Flux를 리턴한다)
+                    .doOnNext(f -> {
+                        System.out.print("group by : ");
+                        System.out.println(f);
+                    })
                     .concatMap(groupedFlux -> groupedFlux.count()
                             .map(count -> {
                                 final Map<String, Long> fruitCount = new LinkedHashMap<>();
