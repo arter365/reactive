@@ -77,6 +77,7 @@ public class Test9Conditional {
                 .timeout(Duration.ofSeconds(2))
                 .subscribe(x -> log.info(x.toString()));
 
+
         // 위의 내용이 처리될 때 까지 프로그램이 대기해야 하기 때문에 아래와 같이 대기를 주었다.
         try {
             Thread.sleep(5000);
