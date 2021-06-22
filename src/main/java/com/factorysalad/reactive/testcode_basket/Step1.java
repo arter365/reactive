@@ -1,6 +1,5 @@
 package com.factorysalad.reactive.testcode_basket;
 
-import com.factorysalad.reactive.model.FruitInfo;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -101,6 +100,11 @@ public class Step1 {
                         System.out.print("group by : ");
                         System.out.println(f);
                     })
+                    // basket1, basket2, basket3을 하나씩 보내서 groupBy한 UnicastGroupedFlux를 리턴한다.
+                    // basket1 = 3개의 그룹
+                    // basket2 = 3개의 그룹
+                    // basket3 = 4개의 그룹
+                    // 결과적으로 3개의 Flux , 3개의 Flux, 4개의 Flux를 아래에서 반복하며 처리한다.
                     .concatMap(groupedFlux -> groupedFlux.count()
                             .map(count -> {
                                 final Map<String, Long> fruitCount = new LinkedHashMap<>();

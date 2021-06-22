@@ -1,4 +1,4 @@
-package com.factorysalad.reactive.model;
+package com.factorysalad.reactive.testcode_basket;
 
 import java.util.List;
 import java.util.Map;
