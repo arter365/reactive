@@ -25,9 +25,9 @@ public class Step1 {
         final List<String> basket1 = Arrays.asList("kiwi", "orange", "lemon", "orange", "lemon", "kiwi");
         final List<String> basket2 = Arrays.asList("banana", "lemon", "lemon", "kiwi");
         final List<String> basket3 = Arrays.asList("strawberry", "orange", "lemon", "grape", "strawberry");
-        // // 이 바구니를 List로 가지는 baskets
+        // 이 바구니를 List로 가지는 baskets
         final List<List<String>> baskets = Arrays.asList(basket1, basket2, basket3);
-        // List를 벗기면 List<String>이 나온다. 이를 Flux로 만들어 준다.
+        // List를 벗기면 List<String>이 나온다. 이를 Flux로 만들어 준다. (Flux, Mono의 처리방식을 Map의 처리와 비슷하게 보면 된다.)
         final Flux<List<String>> basketFlux = Flux.fromIterable(baskets);
 
         // ===============================================================================================
