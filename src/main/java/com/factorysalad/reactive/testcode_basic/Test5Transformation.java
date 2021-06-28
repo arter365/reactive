@@ -21,6 +21,7 @@ public class Test5Transformation {
         t5.groupBy();
     }
 
+    // map은 synchronous하게 동작한다.
     public void map() {
         System.out.println("map start -----");
         List<Person> personList = new ArrayList<>();
@@ -37,6 +38,13 @@ public class Test5Transformation {
         System.out.println("map end -----");
     }
 
+    /*
+    Flux나 Mono로 asynchronous call을 하고 싶다.
+    이럴때는 flatMap을 사용한다. flatMap은 변경하는 Function을 인자로 받아서 Publisher<U>를 리턴한다. (Publisher == Flat or Mono)
+    비동기적으로 변경하는 내용을 Publisher로 감싸고 있다.
+    map을 사용하면 Flux<Publisher<U>>를 리턴하여 사용이 어렵다.
+    반면에 FlatMap을 사용하면
+    */
     public void flatMap() {
         System.out.println("flatMap start -----");
         List<Person> personList = new ArrayList<>();
