@@ -35,7 +35,6 @@ public class Test5Transformation {
                     return p;
                 })
                 .subscribe(p -> log.info(p.toString()));
-
         System.out.println("map end -----");
     }
 
