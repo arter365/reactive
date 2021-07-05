@@ -54,6 +54,8 @@ public class Test5Transformation {
         personList.add(new Person(3, "이순신", 30));
 
         Flux.fromIterable(personList)
+                // flatMap인자로 함수를 만들어서 던지는 것이 핵심이다. (람다식)
+                // flatMap은 비동기식으로 동작하는 방식을 제공할 뿐이다.
                 .flatMap(p -> {
                     p.setAge(p.getAge() + 10);
                     // Mono 또는 Just를 만들어서 리턴한다. flatMap은 리턴한다고 정의되어 있을 뿐 구현은 람다식을 사용하여 직접해야 한다.

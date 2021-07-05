@@ -28,12 +28,22 @@ public class Step2 {
         // List를 벗기면 List<String>이 나온다. 이를 Flux로 만들어 준다. (Flux, Mono의 처리방식을 Map의 처리와 비슷하게 보면 된다.)
         final Flux<List<String>> basketFlux = Flux.fromIterable(baskets);
 
-        Flux<Integer> seq = Flux.just(1, 2, 3)
-                .flatMap(i ->
-                    Flux.range(1, i)
-                ); // Integeran를 Flux<Integer>로 1-N 변환
+        // 함수 밖으로 빠진모습
+        // 리턴 있는 모습으로 똑같은 내용을 표시한다.
 
-        //seq.subscribe(System.out::println);
+        Flux<String> seq = Flux.just("빨강", "초록", "파랑")
+                .switchMap(color ->
+                    Flux.just(color + " 다이아", color + " 다이아")
+                ); // Integeran를 Flux<Integer>로 1-N 변환
+        seq.subscribe(System.out::println);
+
+
+//        Flux<Integer> seq = Flux.just(1, 2, 3)
+//                .flatMap(i ->
+//                    Flux.range(1, i)
+//                ); // Integeran를 Flux<Integer>로 1-N 변환
+//
+//        seq.subscribe(System.out::println);
 
         // ===============================================================================================
 
