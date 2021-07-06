@@ -37,7 +37,6 @@ public class Step2 {
                 ); // Integeran를 Flux<Integer>로 1-N 변환
         seq.subscribe(System.out::println);
 
-
 //        Flux<Integer> seq = Flux.just(1, 2, 3)
 //                .flatMap(i ->
 //                    Flux.range(1, i)
