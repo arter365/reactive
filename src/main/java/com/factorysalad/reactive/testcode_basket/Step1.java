@@ -100,7 +100,7 @@ public class Step1 {
                         System.out.print("group by : ");
                         System.out.println(f);
                     })
-                    // basket1, basket2, basket3을 하나씩 보내서 groupBy한 UnicastGroupedFlux를 리턴한다.
+                    // basket1, basket2, basket3을 하나씩 보내서 groupBy한 UnicastGroupedFlux를 리턴한다. (종류별로 Flux를 만들었기 때문)
                     // basket1 = 3개의 그룹
                     // basket2 = 3개의 그룹
                     // basket3 = 4개의 그룹

@@ -32,8 +32,9 @@ public class Step2 {
         // 리턴 있는 모습으로 똑같은 내용을 표시한다.
 
         Flux<String> seq = Flux.just("빨강", "초록", "파랑")
-                .switchMap(color ->
-                    Flux.just(color + " 다이아", color + " 다이아")
+                .flatMap(ball ->
+                        // Map과 달리 하나가 들어갔을 때 한개 이상이 나올 수 있다는 것이 중요함.
+                    Flux.just(ball + " 다이아", ball + " 다이아")
                 ); // Integeran를 Flux<Integer>로 1-N 변환
         seq.subscribe(System.out::println);
 
