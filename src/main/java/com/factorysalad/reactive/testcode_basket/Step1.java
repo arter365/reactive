@@ -49,6 +49,7 @@ public class Step1 {
                 System.out.print("Test 2) distinctFruits : ");
                 System.out.println(f);
             });
+
             /*
             중복 제거 테스트 결과
             Test 1) basket : [kiwi, orange, lemon, orange, lemon, kiwi]
