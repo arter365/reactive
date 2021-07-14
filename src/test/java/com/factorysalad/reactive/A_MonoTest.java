@@ -46,7 +46,9 @@ public class A_MonoTest {
         String name = "William Suane";
         Mono<String> mono = Mono.just(name)
                 // map은 동기식이다. 1:1로 다른 것으로 변환한다.
-                .map(s -> {throw new RuntimeException("Testing mono with error");});
+                .map(s -> {
+                    throw new RuntimeException("Testing mono with error");
+                });
         mono.subscribe(s -> log.info("Name {}", s), s -> log.error("Something bad happend"));
         mono.subscribe(s -> log.info("Name {}", s), Throwable::printStackTrace);
         log.info("-------------------------");
@@ -122,9 +124,10 @@ public class A_MonoTest {
                 .doOnSubscribe(subscription -> log.info("--- doOnSubscribe ---"))
                 .doOnRequest(longNumber -> log.info("--- doOnRequest ---"))
                 .doOnNext(s -> log.info("--- doOnNext --- {}", s))
-                // 추가
+                // 추가 시작
                 .flatMap(s -> Mono.empty())
                 .doOnNext(s -> log.info("--- doOnNext --- {}", s))  // 방출될게 없기 때문에 실행되지 않는다.
+                // 추가 끝
                 .doOnSuccess(s -> log.info("--- doOnSuccess --- {}", s));
 
         mono.subscribe(s -> log.info("Value {}", s),
@@ -133,6 +136,53 @@ public class A_MonoTest {
         log.info("-------------------------");
     }
 
+    @Test
+    public void monoDoOnError() {
+        Mono<Object> error = Mono.error(new IllegalArgumentException("Illegal argument exception error"))
+                .doOnError(e -> log.error("Error message: {}", e.getMessage()))
+                // 에러가 발생하면 아래는 실행되지 않는다.
+                .doOnNext(s -> log.info("Executing this doOnNext")) // 실행되지 않는다.
+                .log(); // 실행되지 않는다.
 
-    // 07번 볼차례
+        StepVerifier.create(error)
+                .expectError(IllegalArgumentException.class)
+                .verify();
+    }
+
+    @Test
+    public void monoDoOnErrorResume() {
+        String name = "William Suane";
+        Mono<Object> error = Mono.error(new IllegalArgumentException("Illegal argument exception error"))
+                .doOnError(e -> log.error("Error message: {}", e.getMessage()))
+                // 에러가 발행했을 때 여기서부터 다시 시작한다.
+                .onErrorResume(s -> {
+                    log.info("Inside On Error Resume");
+                    return Mono.just(name); // Mono를 리턴한다는 것은 Mono를 리턴하게 만들라는 뜻이다.
+                })
+                .log();
+
+        StepVerifier.create(error)
+                .expectNext(name)
+                .verifyComplete();
+    }
+
+    @Test
+    public void monoDoOnErrorReturn() {
+        String name = "William Suane";
+        Mono<Object> error = Mono.error(new IllegalArgumentException("Illegal argument exception error"))
+                .doOnError(e -> log.error("Error message: {}", e.getMessage()))
+                // 에러가 발행했을 때 리턴한다. (오류 발생 시 데이터베이스에 저장한 후 다시 실행시키는 용도로 활용가능)
+                .onErrorReturn("EMPTY")
+                // 아래는 실행되지 않는다.
+                .onErrorResume(s -> {
+                    log.info("Inside On Error Resume");
+                    return Mono.just(name); // Mono를 리턴한다는 것은 Mono를 리턴하게 만들라는 뜻이다.
+                })
+                .log();
+
+        StepVerifier.create(error)
+                .expectNext("EMPTY")
+                .verifyComplete();
+    }
+
 }
