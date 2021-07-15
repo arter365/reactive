@@ -3,10 +3,15 @@ package com.factorysalad.reactive.testcode_basket;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
+import java.util.List;
+import java.util.Optional;
+import java.util.OptionalInt;
+
 public class Step0 {
     public static void main(String[] args) {
         Step0 step0 = new Step0();
         step0.monoTest();
+        step0.reduceTest();
     }
 
     public void monoTest() {
@@ -36,4 +41,15 @@ public class Step0 {
                 ); // Integeran를 Flux<Integer>로 1-N 변환
         seq.subscribe(System.out::println);
     }
+
+    public void reduceTest() {
+        List<Integer> numbers = List.of(1, 2, 3, 4, 5);
+
+        Integer sum1 = numbers.stream().reduce(0,Integer::sum);
+        System.out.println("sum1 : " + sum1);
+
+        int sum2 = numbers.stream().mapToInt(i -> i).sum();
+
+    }
+
 }
