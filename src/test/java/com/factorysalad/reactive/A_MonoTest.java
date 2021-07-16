@@ -184,5 +184,4 @@ public class A_MonoTest {
                 .expectNext("EMPTY")
                 .verifyComplete();
     }
-
 }
